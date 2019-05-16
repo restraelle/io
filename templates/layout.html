@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>io | {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <script src="/static/js/jquery-3.4.0.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Doppio+One|Ramabhadra|Thasadith" rel="stylesheet">
+    <link href="/static/js/jquery-ui-1.12.1.custom/jquery-ui.theme.css" rel="stylesheet">
+    <script src="/static/js/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+</head>
+
+<body id="{% block identifier %}{% endblock %}">
+    <ul id="context-menu">
+        <li class="context-menu-item">Test 1</li>
+        <li class="context-menu-item">Test 2</li>
+        <li class="context-menu-item">Test 3</li>
+        <li class="context-menu-item">Test 4</li>
+        <li class="context-menu-item">Test 5</li>
+    </ul>
+
+    <div class="bottom-bar">
+        <div id="player">
+            <img id="player-album-art" src="/static/images/player_empty.png">
+            <div class="player-details">
+                <p class="player-data" id="player-song-title"><b>Song Title</b></p>
+                <p class="player-data" id="player-song-artist">Artist</p>
+                <p class="player-data" id="player-song-album">Album</p>
+            </div>
+        </div>
+        <div class="player-seek-container">
+            <p class="player-seek-time" id="player-time">00:00</p>
+            <p class="player-seek-time" id="player-duration">00:00</p>
+            <div style="clear: both;"></div>
+            <div class="player-seek-bar"></div>
+            <div class="player-seek-bar" id="player-seek"></div>
+        </div>
+        <div class="player-auxillary">
+            <img id="mute" src="/static/images/speaker.png">
+            <img id="like" src="/static/images/heart.png">
+            <input class="player-auxillary-volume" id="volume" type="range" min="1" max="100" value="50">
+        </div>
+        <div id="player-controls">
+            <div class="player-control-button" id="player-control-play"><img id="player-control-play-image"src="/static/images/player_play.png"></div>
+            <div class="player-control-button" id="player-control-next"><img src="/static/images/player_next.png"></div>
+            <div class="player-control-button" id="player-control-previous"><img src="/static/images/player_prev.png"></div>
+        </div>
+    </div>
+
+    <div class="left-box">
+        <div id="left-box-background"></div>
+        <input type="textbox" class="search-bar" id="main-search" placeholder="Search">
+        <div id="media-box">
+            <div class="media-box-header"><img src="/static/images/music_note.png">Music</div>
+            <div class="media-box-item" id="media-box-item__songs">Songs</div>
+            <div class="media-box-item" id="media-box-item__artists">Artists</div>
+            <div class="media-box-item" id="media-box-item__albums">Albums</div>
+            <div class="media-box-item" id="media-box-item__styles">Styles</div>
+        </div>
+        <h1>Current Queue</h1>
+        <div id="queue-box">
+            <div class="queue-box-item">
+                <div class="queue-box-item-status">
+                    <div class="playing-circle"></div>
+                </div>
+                <div class="queue-box-item-details">
+                    <p>Song Name</p><br>
+                    <p>Song Artist</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="right-box" id="browser">
+        <div class="welcome-background"></div>
+        <div class="content">
+            <div class="welcome">
+                <h1>welcome to</h1>
+                <img style="width: 200px; filter: invert(1);" src="/static/images/logo.png">
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="/static/js/app.js"></script>
+
+</html>

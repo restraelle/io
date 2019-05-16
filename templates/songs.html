@@ -1,0 +1,32 @@
+
+
+<div class="content">
+    <div id="test">create user</div>
+    <h1>All Songs</h1>
+    {% for song in songs %}
+    <div class="list-song-large" data-song-id="{{ song.id }}" data-artist-id="{{ song.artist.id }}" data-artist-link="{{ song.artist.obf_id }}" data-album-id="{{ song.album.id }}">
+        <div class="list-song-large__play-button" data-song-id="{{ song.id }}"><img src="/static/images/play.png"></div>
+        <div class="list-song-large-data"  data-song-id="{{ song.id }}">
+            <p class="list-song-title" data-song-id="{{ song.id }}">{{ song.title }}</p>
+            <p class="list-song-artist" data-song-id="{{ song.id }}">{{ song.artist.moniker }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+    $('.list-song-large__play-button').on("click", function() {
+        let songID = $(this).attr('data-song-id');
+        console.log(songID);
+        $.get('/api/get/song/' + songID, function(data) {
+            app.player.loadIntoQueue(data);
+            app.player.playEndOfQueue();
+        });
+    });
+    $('.list-song-large').on('contextmenu', function(e) {
+        app.rightClick("song", this, e);
+    });
+    $('#test').click(function() {
+        app.loadPage('/client/create/artist');
+    });
+</script>
