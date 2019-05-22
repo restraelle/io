@@ -1,3 +1,11 @@
-<div class="content">
-    {{ artist.moniker }}
+
+
+<div class="artist-side-art" style="background-image: url('/static/images/banner_pic_test.png')">
+    <div class="artist-header">
+        <div class="artist-profile-picture" style="background-image: url('/static/images/profile_pic_default.jpg')"></div>
+        <h1>{{ artist.moniker }}</h1>
+        {% for album in albums %}
+            {{ album.name }}
+        {% endfor %}
+    </div>
 </div>

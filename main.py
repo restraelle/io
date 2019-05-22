@@ -56,6 +56,53 @@ class Song(db.Model):
     album = relationship('Album', foreign_keys='Song.album_id')
     artist = relationship('Artist', foreign_keys='Song.artist_id')
 
+def createArtist(name):
+    print('[JOB: CREATE ARTIST] Artist "' + name + '" does not exist. Creating artist...')
+    a = Artist(moniker=name, obf_id=generateRandomString(15))
+    db.session.add(a)
+    db.session.commit()
+    print('[JOB: CREATE ARTIST] Created artist.')
+
+
+def createAlbum(nameAlbum, nameArtist, albumArt, songs):
+    artistCreated = False
+    print('[JOB: CREATE ALBUM] Searching for artist "' + nameArtist + '"...')
+    q_artist = Artist.query.filter_by(moniker=nameArtist).first()
+
+    if (not q_artist):
+        createArtist(nameArtist)
+        artistCreated = True
+
+    if (artistCreated):
+        q_artist = Artist.query.filter_by(moniker=nameArtist).first()
+
+    al = Album(name=nameAlbum, artist_id=q_artist.id, obf_id=generateRandomString(15))
+    db.session.add(al)
+    db.session.commit()
+    ## LOOK AT THIS< THIS ISNT FINISHED YET
+
+    RELATIVE_PATH = "\\data\\" + q_artist.obf_id + "\\" + al.obf_id + "\\"
+
+    # LOOK AT THIS LATER
+
+    copyfile(PROJECT_FOLDER + )
+
+    sos = []
+    for song in songs:
+        songID = generateRandomString(15)
+
+        sos.append(Song(title = song.title,
+                        album_id = al.id,
+                        artist_id = al.artist.id,
+                        obf_id = songID,
+                        resource_song_url = RELATIVE_PATH + songID + ".mp3"))
+        
+        copyfile(PROJECT_FOLDER + song.url,
+                 PROJECT_FOLDER + RELATIVE_PATH + songID + ".mp3")
+        al.resource_album_art_url = RELATIVE_PATH + "album." + albumArtExt;
+
+
+
 def createSingleSong(nameSong, nameArtist, nameAlbum, songURL = None, albumArtExt = "jpg"):
     artistCreated = False
     print('[JOB: CREATE SONG] Searching for artist "' + nameArtist + '"...')
@@ -107,8 +154,9 @@ def viewSongs():
 @app.route('/client/artist/<string:artistObfID>')
 def viewArtistPage(artistObfID):
     q = Artist.query.filter_by(obf_id=artistObfID).first()
+    al = Album.query.filter_by(artist_id=q.id).all()
     if(q):
-        return render_template("artist.html", artist=q)
+        return render_template("artist.html", artist=q, albums=al)
     else:
         return "Artist not found."
 
